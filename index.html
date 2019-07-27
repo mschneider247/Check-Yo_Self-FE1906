@@ -10,33 +10,36 @@
 </head>
 <body>
   <header>
-    <h3>Check <span>Yo'</span> Self</h3>
-    <container class="header__container--search-box">
-      <button class="header__button--hour-glass">
-        hourGlass
+    <h2>CHECK <span>YO'</span> SELF</h2>
+    <container>
+      <button>
+        <img src="icons/search.svg" alt="Magnifying glass, search">
       </button>
       <input class="header__input--search" type="text" placeholder="Search">
     </container>
   </header>  
   <nav>
-    <input class="nav__input--new-task" type="text" placeholder="Task Title">
-    <section class="nav__section--added-tasks" >
-      Tasks to be added
-    </section>
-    <section class="nav__section--add-new-task">
-      <input type="text" placeholder="Task Item">
+    <label>
+      Task Title
+    </label>
+    <input class="nav__input--title" type="text" >
+    <section class="nav__section--task-input">
+      <label class="nav__label--task-item">
+        Task Item
+      </label>
+      <input class="nav__input--task-item" type="text">
       <button class="nav__button--plus">
         +
       </button>
     </section>
-    <button class="nav__button--make-task-list">
+    <button class="nav__button">
       Make Task List
     </button>
-    <button class="nav__button--clear-all">
+    <button class="nav__button">
       Clear All
     </button>
-    <section class="nav__section--urgency">
-      <button class="nav__button--filter-urgency">
+    <section class="nav__section--urgent">
+      <button class="nav__button nav__button--filter">
         Filter by Urgency
       </button>
     </section>
@@ -48,19 +51,19 @@
       </p>
       <ul class="main__ul--tasks">
         <li>
-          <img src="" alt="">
+          <img class="main__img--li" src="icons/checkbox.svg" alt="">
           <p>Task to do</p>
         </li>
       </ul>
       <footer>
         <container class="main__container--urgent">
-          <img src="" alt="">
+          <img src="icons/urgent.svg" alt="urgent symbol">
           <p>
             URGENT
           </p>
         </container>
         <container class="main__container--delete">
-          <img src="" alt="">
+          <img src="icons/delete.svg" alt="">
           <p>
             DELETE
           </p>

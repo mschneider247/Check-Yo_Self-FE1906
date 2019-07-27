@@ -1,24 +1,184 @@
 body {
   display: grid;
   grid-template-columns: 1fr 2fr; 
-  grid-template-rows: 1fr 9fr;
+  grid-template-rows: 1fr 20fr;
   grid-template-areas: 
     "header header"
-    "nav main"
+    "nav main";
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
 }
 
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+}
+
+/**************** header styling ****************/
 header {
   grid-area: header;
   color: white;
   background-color: #1F1F3D;
+  display: flex;
+  padding: 0.1%;
 }
 
+header h2 {
+  margin: 2% 3%;
+}
+
+header span {
+  color: #FFC30C;
+}
+
+header container {
+  border-radius: 10px;
+  display: flex;
+  margin: auto 2% auto auto;
+  width: 220px;
+  height: 32px;
+}
+
+header button {
+  border-radius: 3px 0px 0px 3px;
+  width: 17%;
+  background-color: lightgrey;
+  padding: 2%;
+}
+
+header img {
+  margin-right: auto;
+  height: 20px;
+  width: 20px;
+}
+
+header input {
+  border: none;
+  border-radius: 0px 3px 3px 0px;
+  width: 78%;
+}
+
+/**************** nav styling ****************/
 nav {
   grid-area: nav;
   color: white;
   background-color: #587A8A;
+  padding: 10% 4%;
 }
 
+nav label {
+  font-size: 0.5em;
+  color: lightgrey;
+  display: block;
+}
+
+nav button {
+  border: 1px solid #1F1F3D;
+  background-color: #1F1F3D;
+  color: white;
+}
+
+.nav__input--title,
+.nav__section--task-input,
+.nav__button {
+  margin: 5% 0;
+  height: 32px;
+  width: 224px;
+  padding: 0;
+}
+
+.nav__input--title {
+  border-radius: 3px 3px 3px 3px;
+  border: 1px solid #1F1F3D;
+  margin: 0;
+}
+
+.nav__section--task-input {
+  width: 224px;
+  margin-top: 10%;
+  height: 42px;
+}
+
+.nav__input--task-item {
+  border: 1px solid #1F1F3D;
+  border-radius: 3px 0px 0px 3px;
+  height: 67%;
+  width: 188px;
+}
+
+.nav__button--plus {
+  font-size: 1.4em;
+  border-radius: 0px 3px 3px 0px;
+  float: right;
+  width: 32px;
+  height: 32px;
+}
+
+.nav__section--urgent {
+  margin-top: 6%;
+  border-top: 1px solid #1F1F3D;
+}
+
+.nav__button--filter {
+  margin-top: 10%
+}
+
+/**************** main styling ****************/
 main {
+  padding: 5%;
   grid-area: main;
+}
+
+main img {
+  margin-top: 1.5%;
+  width: 16px;
+  height: 16px;
+}
+
+main card {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #C7D3D8;
+  padding: 3%;
+}
+
+.main__p--title {
+  border-bottom: 1px solid grey;
+}
+
+main footer {
+  display: flex;
+  border-top: 1px solid grey;
+}
+
+li p {
+  margin-left: 2%;
+}
+
+footer p {
+  font-size: 0.5em;
+}
+
+footer container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main__container--delete {
+  margin-left: auto;
+}
+
+footer img {
+  margin: 30% auto 0 auto;
 }
