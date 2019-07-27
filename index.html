@@ -10,53 +10,56 @@
 </head>
 <body>
   <header>
-    <h2>Check <span>Yo'</span> Self</h2>
-    <container>
-      <button>
+    <h3>Check <span>Yo'</span> Self</h3>
+    <container class="header__container--search-box">
+      <button class="header__button--hour-glass">
         hourGlass
       </button>
-      <input type="text" placeholder="Search">
+      <input class="header__input--search" type="text" placeholder="Search">
     </container>
   </header>  
   <nav>
-    <input type="text" placeholder="Task Title">
-    <section>
+    <input class="nav__input--new-task" type="text" placeholder="Task Title">
+    <section class="nav__section--added-tasks" >
+      Tasks to be added
+    </section>
+    <section class="nav__section--add-new-task">
       <input type="text" placeholder="Task Item">
-      <button>
+      <button class="nav__button--plus">
         +
       </button>
     </section>
-    <button>
+    <button class="nav__button--make-task-list">
       Make Task List
     </button>
-    <button>
+    <button class="nav__button--clear-all">
       Clear All
     </button>
-    <section>
-      <button>
+    <section class="nav__section--urgency">
+      <button class="nav__button--filter-urgency">
         Filter by Urgency
       </button>
     </section>
   </nav>
   <main>
-    <card>
-      <p>
+    <card class="main__card">
+      <p class="main__p--title">
         Task Title
       </p>
-      <ul>
+      <ul class="main__ul--tasks">
         <li>
           <img src="" alt="">
           <p>Task to do</p>
         </li>
       </ul>
       <footer>
-        <container>
+        <container class="main__container--urgent">
           <img src="" alt="">
           <p>
             URGENT
           </p>
         </container>
-        <container>
+        <container class="main__container--delete">
           <img src="" alt="">
           <p>
             DELETE
