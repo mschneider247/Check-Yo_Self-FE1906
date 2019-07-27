@@ -10,54 +10,60 @@
 </head>
 <body>
   <header>
-    <h2>Check <span>Yo'</span> Self</h2>
+    <h2>CHECK <span>YO'</span> SELF</h2>
     <container>
       <button>
-        hourGlass
+        <img src="icons/search.svg" alt="Magnifying glass, search">
       </button>
       <input type="text" placeholder="Search">
     </container>
   </header>  
   <nav>
-    <input type="text" placeholder="Task Title">
-    <section>
-      <input type="text" placeholder="Task Item">
-      <button>
+    <label>
+      Task Title
+    </label>
+    <input class="nav__input--title" type="text" >
+    <section class="nav__section--task-input">
+      <label class="nav__label--task-item">
+        Task Item
+      </label>
+      <input class="nav__input--task-item" type="text">
+      <button class="nav__button--plus">
         +
       </button>
     </section>
-    <button>
+    <button class="nav__button">
       Make Task List
     </button>
-    <button>
+    <button class="nav__button">
       Clear All
     </button>
-    <section>
-      <button>
+    <section class="nav__section--urgent">
+      <button class="nav__button nav__button--filter">
         Filter by Urgency
       </button>
     </section>
   </nav>
   <main>
     <card>
-      <p>
+      <p class="main__p--title">
         Task Title
       </p>
       <ul>
         <li>
-          <img src="" alt="">
+          <img class="main__img--li" src="icons/checkbox.svg" alt="">
           <p>Task to do</p>
         </li>
       </ul>
       <footer>
-        <container>
-          <img src="" alt="">
+        <container class="main__container--urgent">
+          <img src="icons/urgent.svg" alt="urgent symbol">
           <p>
             URGENT
           </p>
         </container>
-        <container>
-          <img src="" alt="">
+        <container class="main__container--delete">
+          <img src="icons/delete.svg" alt="">
           <p>
             DELETE
           </p>
