@@ -1,0 +1,24 @@
+body {
+  display: grid;
+  grid-template-columns: 1fr 2fr; 
+  grid-template-rows: 1fr 9fr;
+  grid-template-areas: 
+    "header header"
+    "nav main"
+}
+
+header {
+  grid-area: header;
+  color: white;
+  background-color: #1F1F3D;
+}
+
+nav {
+  grid-area: nav;
+  color: white;
+  background-color: #587A8A;
+}
+
+main {
+  grid-area: main;
+}
