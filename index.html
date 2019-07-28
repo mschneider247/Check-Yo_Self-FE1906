@@ -39,13 +39,13 @@
       </button>
     </section>
     <div class="hide" id="nav__div--list-error">
-        <img class="nav__img--error" src="icons/error-icon.svg" alt="Error Symbol">
-        <p id="nav__p--error">Please Enter a List Item</p>
+      <img class="nav__img--error" src="icons/error-icon.svg" alt="Error Symbol">
+      <p id="nav__p--error">Please Enter a List Item</p>
     </div>
     <button id="nav__button--add-new-task" class="nav__button">
       Make Task List
     </button>
-    <button class="nav__button">
+    <button id="nav__button--clear-all" class="nav__button">
       Clear All
     </button>
     <section class="nav__section--urgent">
@@ -55,31 +55,6 @@
     </section>
   </nav>
   <main>
-    <card class="main__card">
-      <p class="main__p--title">
-        Task Title
-      </p>
-      <ul class="main__ul--tasks">
-        <li>
-          <img class="main__img--li" src="icons/checkbox.svg" alt="">
-          <p>Task to do</p>
-        </li>
-      </ul>
-      <footer>
-        <container class="main__container--urgent">
-          <img src="icons/urgent.svg" alt="urgent symbol">
-          <p>
-            URGENT
-          </p>
-        </container>
-        <container class="main__container--delete">
-          <img src="icons/delete.svg" alt="">
-          <p>
-            DELETE
-          </p>
-        </container>
-      </footer>
-    </card>
   </main>
 </body>
 <script src="todo-list.js"></script>
