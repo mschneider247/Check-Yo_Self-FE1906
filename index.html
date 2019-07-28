@@ -23,6 +23,10 @@
       Task Title
     </label>
     <input class="nav__input--title" type="text" >
+    <div class="hide" id="nav__div--title-error">
+      <img class="nav__img--error" src="icons/error-icon.svg" alt="Error Symbol">
+      <p id="nav__p--error">Please Enter a Title</p>
+    </div>
     <section class="nav__section--task-input">
       <label class="nav__label--task-item">
         Task Item
@@ -31,8 +35,12 @@
       <button class="nav__button--plus">
         +
       </button>
+      <div class="hide" id="nav__div--list-error">
+        <img class="nav__img--error" src="icons/error-icon.svg" alt="Error Symbol">
+        <p id="nav__p--error">Please Enter a List Item</p>
+      </div>
     </section>
-    <button class="nav__button" id="nav__button--add-new-task">
+    <button id="nav__button--add-new-task" class="nav__button">
       Make Task List
     </button>
     <button class="nav__button">

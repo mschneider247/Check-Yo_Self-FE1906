@@ -88,6 +88,24 @@ nav button {
   color: white;
 }
 
+#nav__div--title-error, #nav__div--list-error {
+  height: 0px;
+  display: flex;
+}
+
+.nav__img--error {
+  margin-right: 4%;
+  height: 18px;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+#nav__p--error {
+  color: #fc6203;
+}
+
 .nav__input--title,
 .nav__section--task-input,
 .nav__button {
