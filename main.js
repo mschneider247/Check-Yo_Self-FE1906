@@ -4,6 +4,7 @@ var titleInput = document.querySelector(".nav__input--title");
 var listInput = document.querySelector(".nav__input--task-item");
 var titleInputError = document.querySelector("#nav__div--title-error");
 var listInputError = document.querySelector("#nav__div--list-error");
+var tasklistArea = document.querySelector(".nav__container-task-list");
 
 navBody.addEventListener('click', navEventHandler);
 titleInput.addEventListener('mouseout', newObjectTitle);
@@ -15,8 +16,6 @@ function navEventHandler(e) {
     createNewCard(titleInput.value);
   }
   if (e.target.className === 'nav__button--plus') {
-    console.log("listInput.value===", listInput.value);
-    console.log("createNewCard firing!!!");
     createNewTask(listInput.value, e);
   }
 }
@@ -49,6 +48,7 @@ function createNewTask(taskString, e) {
         todoGlobalArray[i].updateTask(taskli);
         // function to populate the DOM and clear the input
         populateTaskInDOM(taskli);
+        listInput.value = "";
       }
     }
     console.log("todoListArray====",todoGlobalArray);
@@ -58,6 +58,12 @@ function createNewTask(taskString, e) {
 function populateTaskInDOM(taskli) {
   console.log("populateTaskInDOM is firing!!");
   console.log("taskli object is====", taskli);
+  tasklistArea.insertAdjacentHTML('afterend', `<div class="nav__div--list-item">
+          <img class="nav__div--list-img" src="icons/delete.svg" alt="Task bullet point">
+          <p>
+            ${taskli.text}
+          </p>
+        </div>`);
 }
 
 function createNewCard(titleString) {
@@ -81,16 +87,10 @@ function createNewCard(titleString) {
 
 function checkInputs (){
   if ((checkTitleInput() === true) && (checkListInput() === true)){
-    console.log("checkTitleInput and checkList Input are returning true");
-    titleInputError.classList.add("hide");
-    listInputError.classList.add("hide");
     return true;
-  } else if ((checkTitleInput() === true) && (checkListInput() === false)){
-    titleInputError.classList.add("hide");
-    listInputError.classList.remove("hide"); 
+  } else if ((checkTitleInput() === true) && (checkListInput() === false)){ 
     return false;
   } else {
-    titleInputError();
     return false;
   }
 }
@@ -106,6 +106,7 @@ function checkTitleInput(){
 
 function checkListInput(){
   if (listInput.value !== ""){
+    listInputError.classList.add("hide");
     return true;
   }
   listInputError.classList.remove("hide");
