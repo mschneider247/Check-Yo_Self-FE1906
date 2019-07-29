@@ -6,6 +6,7 @@ var listInput = document.querySelector(".nav__input--task-item");
 var titleInputError = document.querySelector("#nav__div--title-error");
 var listInputError = document.querySelector("#nav__div--list-error");
 var tasklistArea = document.querySelector(".nav__container-task-list");
+var inspire = document.querySelector("#main__container--inspire")
 
 navBody.addEventListener('click', navEventHandler);
 titleInput.addEventListener('mouseout', newToDoTitle);
@@ -14,6 +15,7 @@ window.addEventListener("load", reInstantiate);
 function reInstantiate(){
   var parsedTodoList = JSON.parse(localStorage.getItem("todoList"));
   if (parsedTodoList == null){
+    inspire.classList.remove("hide");
     return;
   }
   for (var i = 0; i < parsedTodoList.length; i++){
@@ -73,6 +75,7 @@ function findIndex(e, array, item) {
 
 function populateCardAndSave(index) {
   if ((todoGlobalArray[index].title === titleInput.value) && (checkTasksIsPopulated(index) === true)) {
+        inspire.classList.add("hide");
         populateCardToDOM(todoGlobalArray[index]);
         todoGlobalArray[index].saveToStorage(todoGlobalArray);
         clearNavArea();
