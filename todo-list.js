@@ -9,10 +9,19 @@ class ToDoList {
   updateTask(taskli) {
     this.tasks.push(taskli)
   }
+
+  saveToStorage(todoGlobalArray) {
+    localStorage.setItem("todoList", JSON.stringify(todoGlobalArray));
+  }
+
+  deleteFromStorage() {
+
+  }
 }
 
 class TaskList {
   constructor(object) {
+    this.id = object.id;
     this.text = object.text;
     this.isComplete = object.isComplete;
   }
