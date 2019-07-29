@@ -13,10 +13,7 @@ titleInput.addEventListener('mouseout', newToDoTitle);
 function navEventHandler(e) {
   if (e.target.id === 'nav__button--add-new-task') {
     for (var i = 0; i < todoGlobalArray.length; i++){
-      if (todoGlobalArray[i].title === titleInput.value) {
-        populateCardToDOM(todoGlobalArray[i]);
-        clearNavArea();
-      }
+      populateCardAndSave(i);
     }
   }
   if (e.target.className === 'nav__button--plus') {
@@ -24,6 +21,14 @@ function navEventHandler(e) {
   }
   if (e.target.id === 'nav__button--clear-all') {
     clearAll()
+  }
+}
+
+function populateCardAndSave(index) {
+  if (todoGlobalArray[index].title === titleInput.value) {
+        populateCardToDOM(todoGlobalArray[index]);
+        todoGlobalArray[index].saveToStorage(todoGlobalArray);
+        clearNavArea();
   }
 }
 
@@ -61,10 +66,7 @@ function createNewTask(taskString, e) {
   if (checkInputs() === false){
     return;
   } else {
-    var taskObject = {
-      text: taskString,
-      isComplete: false,
-    }
+    var taskObject = newTaskObject(taskString);
     var taskli = new TaskList(taskObject);
     for (var i = 0; i < todoGlobalArray.length; i ++){
       if (todoGlobalArray[i].title === titleInput.value){
@@ -73,9 +75,16 @@ function createNewTask(taskString, e) {
         listInput.value = "";
       }
     }
-    console.log("todoListArray====",todoGlobalArray);
-    };
+  };
 };
+
+function newTaskObject(taskString) {
+  return {
+      id: Date.now(),
+      text: taskString,
+      isComplete: false,
+      }
+}
 
 function populateCardToDOM(todoObject) {
   if (todoGlobalArray.length > 0){
@@ -110,7 +119,7 @@ function populateTasksToCard(tasks) {
     taskList += `<li>
           <img class="main__img--li" src="icons/checkbox.svg" alt="">
           <p>${tasks[i].text}</p>
-        </li>`
+          </li>`
   }
   return taskList;
 }
@@ -125,15 +134,19 @@ function populateTaskToNav(taskli) {
 }
 
 function createNewCard(titleString) {
-  var todoObject = {
+  var todoObject = newTodoObject(titleString);
+  var todoItem = new ToDoList(todoObject);
+  todoGlobalArray.push(todoItem);
+  console.log("Global Array===", todoGlobalArray);
+}
+
+function newTodoObject(titleString) {
+  return {
     id: Date.now(),
     title: titleString,
     urgent: false,
     tasks: [],
-  }
-  var todoItem = new ToDoList(todoObject);
-  todoGlobalArray.push(todoItem);
-  console.log("Global Array===", todoGlobalArray);
+    }
 }
 
 function checkInputs (){
