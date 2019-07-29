@@ -9,29 +9,24 @@ var tasklistArea = document.querySelector(".nav__container-task-list");
 var inspire = document.querySelector("#main__container--inspire")
 
 navBody.addEventListener('click', navEventHandler);
-titleInput.addEventListener('mouseout', newToDoTitle);
+titleInput.addEventListener('mouseout', mouseOutCreateInitialObject);
 window.addEventListener("load", reInstantiate);
 
-function reInstantiate(){
+function reInstantiate() {
   var parsedTodoList = JSON.parse(localStorage.getItem("todoList"));
   if (parsedTodoList == null){
     inspire.classList.remove("hide");
     return;
   }
-  for (var i = 0; i < parsedTodoList.length; i++){
+  for (var i = 0; i < parsedTodoList.length; i++) {
     buildCard(parsedTodoList[i]);
     populateCardToDOM(parsedTodoList[i]);
   }
 }
 
-//need another event listener for the x button on the
-//individual tasks as they pop up in the dom
-//this event will delete that element from the dom
-//but also needs to remove the coorisponding task from
-//the data model
 function navEventHandler(e) {
   if (e.target.id === 'nav__button--add-new-task') {
-      for (var i = 0; i < todoGlobalArray.length; i++){
+      for (var i = 0; i < todoGlobalArray.length; i++) {
         populateCardAndSave(i);
     }
   }
@@ -41,32 +36,30 @@ function navEventHandler(e) {
   if (e.target.id === 'nav__button--clear-all') {
     clearAll()
   }
-  if (e.target.className === 'nav__div--list-img'){
+  if (e.target.className === 'nav__div--list-img') {
     console.log("Clicking on the list image");
     removeTaskFromNavAndTodo(e);
   } 
 }
 
-// instead of pointing to GlobalArray 0 we can change how we load in the objects...
 function removeTaskFromNavAndTodo(e) {
   var taskArray = todoGlobalArray[0].tasks
-  for (var i = 0; i < taskArray.length; i++){
+  for (var i = 0; i < taskArray.length; i++) {
     var taskIndex = findIndex(e, taskArray, 'nav__div--list-item')
-    if (taskIndex >= 0){
+    if (taskIndex >= 0) {
       console.log("taskIndex====", taskIndex);
       taskArray.splice(taskIndex, 1);
       e.target.parentNode.remove();
-    }
-    
+    } 
   }   
 }
 
-function findIndex(e, array, item) {
-  var id = e.target.closest('.' + item).dataset.id;
+function findIndex(e, array, htmlAttribute) {
+  var id = e.target.closest('.' + htmlAttribute).dataset.id;
   var getIndex = array.findIndex(function(index) {
         console.log("index.id===", index.id);
         console.log("id===", id);
-        if (index.id == id){
+        if (index.id == id) {
           return index.id;
         }
   });
@@ -109,19 +102,20 @@ function clearNavArea() {
   listInputError.classList.add("hide");
 }
 
-function newToDoTitle(e){
+//newToDoTitle needs a new name...   mouseOutCreateInitialObject
+function mouseOutCreateInitialObject(e){
   console.log("mouseout is firing!");
-  if (checkTitleInput() === false){
+  if (checkTitleInput() === false) {
     return;
-  } else if (checkDuplicateTitles() === false){
+  } else if (checkDuplicateTitles() === false) {
     return;    
   }
   createNewCard(titleInput.value); 
 }
 
 function checkDuplicateTitles() {
-  for (var i = 0; i < todoGlobalArray.length; i++){
-      if (todoGlobalArray[i].title === titleInput.value){
+  for (var i = 0; i < todoGlobalArray.length; i++) {
+      if (todoGlobalArray[i].title === titleInput.value) {
         return false;
       };
   };
@@ -219,7 +213,7 @@ function newTodoObject(titleString) {
     }
 }
 
-function checkInputs (){
+function checkInputs() {
   if ((checkTitleInput() === true) && (checkListInput() === true)){
     return true;
   } else if ((checkTitleInput() === true) && (checkListInput() === false)){ 
@@ -229,7 +223,7 @@ function checkInputs (){
   }
 }
  
-function checkTitleInput(){
+function checkTitleInput() {
   if (titleInput.value !== ""){
     titleInputError.classList.add("hide");
     return true;
@@ -238,7 +232,7 @@ function checkTitleInput(){
   return false;
 }
 
-function checkListInput(){
+function checkListInput() {
   if (listInput.value !== ""){
     listInputError.classList.add("hide");
     return true;
