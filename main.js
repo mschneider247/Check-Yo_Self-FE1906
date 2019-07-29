@@ -9,6 +9,18 @@ var tasklistArea = document.querySelector(".nav__container-task-list");
 
 navBody.addEventListener('click', navEventHandler);
 titleInput.addEventListener('mouseout', newToDoTitle);
+window.addEventListener("load", reInstantiate);
+
+function reInstantiate(){
+  var parsedTodoList = JSON.parse(localStorage.getItem("todoList"));
+  if (parsedTodoList == null){
+    return;
+  }
+  for (var i = 0; i < parsedTodoList.length; i++){
+    buildCard(parsedTodoList[i]);
+    populateCardToDOM(parsedTodoList[i]);
+  }
+}
 
 function navEventHandler(e) {
   if (e.target.id === 'nav__button--add-new-task') {
@@ -135,9 +147,13 @@ function populateTaskToNav(taskli) {
 
 function createNewCard(titleString) {
   var todoObject = newTodoObject(titleString);
-  var todoItem = new ToDoList(todoObject);
-  todoGlobalArray.push(todoItem);
+  buildCard(todoObject);
   console.log("Global Array===", todoGlobalArray);
+}
+
+function buildCard(object) {
+  var todoItem = new ToDoList(object);
+  todoGlobalArray.push(todoItem);
 }
 
 function newTodoObject(titleString) {
