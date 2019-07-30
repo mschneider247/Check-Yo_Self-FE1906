@@ -4,6 +4,7 @@ class ToDoList {
     this.title = object.title;
     this.urgent = object.urgent;
     this.tasks = object.tasks;
+    this.deletable = false;
   }
 
   addNewTask(taskliObj) {
@@ -20,6 +21,10 @@ class ToDoList {
 
   saveToStorage(todoGlobalArray) {
     localStorage.setItem("todoList", JSON.stringify(todoGlobalArray));
+  }
+
+  readyToDelete() {
+    this.deletable = true;
   }
 
   deleteFromStorage(cardId) {
