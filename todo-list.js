@@ -22,8 +22,12 @@ class ToDoList {
     localStorage.setItem("todoList", JSON.stringify(todoGlobalArray));
   }
 
-  deleteFromStorage() {
-
+  deleteFromStorage(cardId) {
+    for (var i = 0; i < todoGlobalArray.length; i++) {
+      if (todoGlobalArray[i].id === cardId) {
+        todoGlobalArray.splice(i, 1);
+      }
+    }
   }
 }
 

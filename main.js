@@ -8,10 +8,6 @@ var listInputError = document.querySelector("#nav__div--list-error");
 var tasklistArea = document.querySelector(".nav__container-task-list");
 var inspire = document.querySelector("#main__container--inspire");
 
-//When an image is clicked it will find its parent id and match it
-// to the id in global array.  Then I can target that specific element and change
-// images when its clicked and change the done state boolean...    ok
-
 mainBody.addEventListener('click', mainEventHandler);
 navBody.addEventListener('click', navEventHandler);
 titleInput.addEventListener('mouseout', mouseOutCreateInitialObject);
@@ -20,6 +16,18 @@ window.addEventListener("load", reInstantiate);
 function mainEventHandler(e) {
   if (e.target.classList.contains('main__img--li')) {
     checkOffTask(e); 
+  }
+  if (e.target.classList.contains('main__img--delete')) {
+    deleteButtonClicked(e);
+  }
+}
+
+function deleteButtonClicked(e) {
+  if (e.target.parentElement.classList.contains('main__p--red')) {
+    var foundCard = findCardObj(findId(e));
+    foundCard.deleteFromStorage(findId(e));
+    e.target.parentElement.parentElement.parentElement.remove();
+    localStorage.setItem("todoList", JSON.stringify(todoGlobalArray));
   }
 }
 
@@ -32,9 +40,21 @@ function checkOffTask(e) {
   for (var i = 0; i < foundCard.tasks.length; i++) {
     if (foundCard.tasks[i].id === taskId){
       foundCard.updateToDo(i)
+      checkDeleteActivate(foundCard, e);
       foundCard.saveToStorage(todoGlobalArray);
     }
   }
+}
+
+function checkDeleteActivate(foundCard, e) {
+  for (var i = 0; i < foundCard.tasks.length; i++) {
+    if (foundCard.tasks[i].isComplete === false) {
+      return;
+    }
+  }
+  var deleteContainer = e.target.parentElement.parentElement.parentElement.childNodes[5].children[1];
+  deleteContainer.classList.remove("main__p--shadow");
+  deleteContainer.classList.add("main__p--red");
 }
 
 function findCardObj(cardId){
@@ -198,8 +218,8 @@ function populateCardToDOM(todoObject) {
             URGENT
           </p>
         </container>
-        <container class="main__container--delete">
-          <img src="icons/delete.svg" alt="">
+        <container class="main__container--delete main__p--shadow">
+          <img class="main__img--delete" src="icons/delete.svg" alt="delete symbol">
           <p>
             DELETE
           </p>
