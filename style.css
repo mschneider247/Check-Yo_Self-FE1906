@@ -250,3 +250,33 @@ footer container {
 footer img {
   margin: 30% auto 0 auto;
 }
+
+/**************** Media Queries ****************/
+@media only screen and (max-width: 500px) {
+
+  body {
+    grid-template-rows: 0.8fr;
+    grid-template-areas: 
+      "header"
+      "nav"
+      "main";
+  }
+
+  header {
+    flex-direction: column;
+    height: 100px;
+  }
+
+  header h2 {
+    margin: auto;
+  }
+
+  nav {
+    padding: 4% 4%;
+  }
+
+  main card{
+    width: 95%;
+    margin: 2% auto;
+  }
+}
