@@ -55,6 +55,7 @@ function checkDeleteActivate(foundCard, e) {
   var deleteContainer = e.target.parentElement.parentElement.parentElement.childNodes[5].children[1];
   deleteContainer.classList.remove("main__p--shadow");
   deleteContainer.classList.add("main__p--red");
+  foundCard.readyToDelete();
 }
 
 function findCardObj(cardId){
@@ -98,13 +99,10 @@ function reInstantiate() {
 }
 
 function removeTaskFromNavAndTodo(e) {
-  console.log("is this still firing?  yes...")
   var taskArray = todoGlobalArray[0].tasks
-  console.log("taskArray===", taskArray);
   for (var i = 0; i < taskArray.length; i++) {
     var taskIndex = findIndex(e, taskArray, 'nav__div--list-item')
     if (taskIndex >= 0) {
-      console.log("taskIndex====", taskIndex);
       taskArray.splice(taskIndex, 1);
       e.target.parentNode.remove();
     } 
@@ -218,7 +216,7 @@ function populateCardToDOM(todoObject) {
             URGENT
           </p>
         </container>
-        <container class="main__container--delete main__p--shadow">
+        <container class="main__container--delete ${cardCanBeDeleted(todoObject)}">
           <img class="main__img--delete" src="icons/delete.svg" alt="delete symbol">
           <p>
             DELETE
@@ -227,6 +225,13 @@ function populateCardToDOM(todoObject) {
       </footer>
     </card>`)
   }
+}
+
+function cardCanBeDeleted(todoObject) {
+  if (todoObject.deletable === false) {
+    return 'main__p--shadow'
+  }
+  return 'main__p--red'
 }
 
 function populateTasksToCard(tasks) {
