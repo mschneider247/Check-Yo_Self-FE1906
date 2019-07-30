@@ -50,8 +50,9 @@ function deactivateUrgency(foundCard, e) {
 }
 
 function deleteButtonClicked(e) {
-  if (e.target.parentElement.classList.contains('main__p--red')) {
-    var foundCard = findCardObj(findId(e));
+  console.log("deleteButtonClicked is firing!")
+  var foundCard = findCardObj(findId(e));
+  if (foundCard.deletable === true) {
     foundCard.deleteFromStorage(findId(e));
     e.target.parentElement.parentElement.parentElement.remove();
     localStorage.setItem("todoList", JSON.stringify(todoGlobalArray));
@@ -68,7 +69,6 @@ function checkOffTask(e) {
     if (foundCard.tasks[i].id === taskId){
       foundCard.updateToDo(i)
       checkDeleteActivate(foundCard, e);
-      foundCard.saveToStorage(todoGlobalArray);
     }
   }
 }
@@ -83,10 +83,10 @@ function checkDeleteActivate(foundCard, e) {
   deleteContainer.classList.remove("main__p--shadow");
   deleteContainer.classList.add("main__p--red");
   foundCard.readyToDelete();
+  foundCard.saveToStorage(todoGlobalArray);
 }
 
 function findCardObj(cardId){
-  console.log("cardId===", cardId);
   return todoGlobalArray.find(function(index){
     return index.id === cardId })
 }
@@ -108,12 +108,11 @@ function navEventHandler(e) {
     clearAll()
   }
   if (e.target.className === 'nav__div--list-img') {
-    console.log("Clicking on the list image");
     removeTaskFromNavAndTodo(e);
   } 
 }
 
-function reInstantiate() {
+function reInstantiate(e) {
   var parsedTodoList = JSON.parse(localStorage.getItem("todoList"));
   if (parsedTodoList == null){
     inspire.classList.remove("hide");
@@ -121,8 +120,21 @@ function reInstantiate() {
   }
   for (var i = 0; i < parsedTodoList.length; i++) {
     buildCard(parsedTodoList[i]);
+    reActivateDelete(i);
     populateCardToDOM(parsedTodoList[i]);
   }
+}
+
+function reActivateDelete(currentIndex) {
+  var isCompleteCounter = 0;
+  for (var i = 0; i < todoGlobalArray[currentIndex].tasks.length; i++) {
+    if (todoGlobalArray[currentIndex].tasks[i].isComplete === false) {
+      isCompleteCounter++;
+    }
+  }
+  if (isCompleteCounter === 0) {
+    todoGlobalArray[currentIndex].readyToDelete();
+  }  
 }
 
 function removeTaskFromNavAndTodo(e) {
@@ -265,8 +277,9 @@ function determineUrgencyOnReload(todoObject) {
 function cardCanBeDeleted(todoObject) {
   if (todoObject.deletable === false) {
     return 'main__p--shadow'
+  } else if (todoObject.deletable === true) {
+    return 'main__p--red'
   }
-  return 'main__p--red'
 }
 
 function populateTasksToCard(tasks) {
@@ -315,7 +328,7 @@ function createNewCard(titleString) {
 
 function buildCard(object) {
   var todoItem = new ToDoList(object);
-  todoGlobalArray.unshift(todoItem);
+  todoGlobalArray.push(todoItem);
 }
 
 function newTodoObject(titleString) {
