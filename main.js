@@ -234,14 +234,14 @@ function cardCanBeDeleted(todoObject) {
   return 'main__p--red'
 }
 
+
+// why is the image saving and persisting properly, but main__p--task-finished gets applied to all the tasks
+// when I reload
 function populateTasksToCard(tasks) {
   var taskList = "";
-  var pClass = "";
   for (var i = 0; i < tasks.length; i++){
     var checkImage = checkListImage(tasks, i);
-    if (checkImage === "icons/delete-active.svg") {
-      pClass = "main__p--task-finished"
-    }
+    var pClass = setTaskStyle(checkImage);
     taskList += `<li data-id=${tasks[i].id} class="main__card--li">
           <img class="main__img--li" src=${checkImage} alt="icon check-box">
           <p class=${pClass}>${tasks[i].text}</p>
@@ -255,6 +255,14 @@ function checkListImage(tasks, index) {
     return "icons/delete-active.svg"
   }
   return "icons/checkbox.svg"
+}
+
+function setTaskStyle(checkImage) {
+  if (checkImage === "icons/delete-active.svg") {
+      return "main__p--task-finished"
+    } else {
+      return "";
+    }
 }
 
 function populateTaskToNav(taskListObj) {
