@@ -8,20 +8,49 @@ var listInputError = document.querySelector("#nav__div--list-error");
 var tasklistArea = document.querySelector(".nav__container-task-list");
 var inspire = document.querySelector("#main__container--inspire")
 
+// Okay for phase 2 I need somenew query selectors and event listeners
+// for the main area...   looks like I already have a query selector 
+// for it so check that off. The only thing I use it for right now
+// is the add inner html for the main element.  I can add an event listener
+// to that.  
+
+//When an image is clicked it will find its parent id and match it
+// to the id in global array.  Then I can target that specific element and change
+// images when its clicked and changing the done state boolean...    ok
+
+mainBody.addEventListener('click', mainEventHandler);
 navBody.addEventListener('click', navEventHandler);
 titleInput.addEventListener('mouseout', mouseOutCreateInitialObject);
 window.addEventListener("load", reInstantiate);
 
-function reInstantiate() {
-  var parsedTodoList = JSON.parse(localStorage.getItem("todoList"));
-  if (parsedTodoList == null){
-    inspire.classList.remove("hide");
-    return;
+function mainEventHandler(e) {
+  console.log("Clicking in the MAIN area!!!!");
+  console.log("e.target.classList.contains('main__img--li') ===", e.target.classList.contains("main__img--li"));
+  if (e.target.classList.contains('main__img--li')) {
+    console.log("Holy shit!! ewe hit the task complete button!!");
+    console.log("e.target===", e.target);
+    console.log("e.target.src===", e.target.src);
+    e.target.src = "icons/delete-active.svg";
+    console.log("e===", e);
+    console.log("e.target.parentNode.children[1].classList===", e.target.parentNode.children[1].classList);
+    var pNode = e.target.parentNode.children[1];
+    console.log(pNode);
+    pNode.classList.add("main__p--task-finished");
+    // In populateTasksToCard  wtf am I trying to do??
+    // in polulate"          " you can see the different elements
+    // you want to change the p tag to be italic
+    // --- match the p tag using the event console.log
+    // you'll add a new class and then style that class
+    // in the css
+    // more styling!!
+
+
+    // and change the object property to be true
+    // this needs to be passed through the class
+    // save to storage
+    // dom gets updated in the main.js
   }
-  for (var i = 0; i < parsedTodoList.length; i++) {
-    buildCard(parsedTodoList[i]);
-    populateCardToDOM(parsedTodoList[i]);
-  }
+
 }
 
 function navEventHandler(e) {
@@ -40,6 +69,18 @@ function navEventHandler(e) {
     console.log("Clicking on the list image");
     removeTaskFromNavAndTodo(e);
   } 
+}
+
+function reInstantiate() {
+  var parsedTodoList = JSON.parse(localStorage.getItem("todoList"));
+  if (parsedTodoList == null){
+    inspire.classList.remove("hide");
+    return;
+  }
+  for (var i = 0; i < parsedTodoList.length; i++) {
+    buildCard(parsedTodoList[i]);
+    populateCardToDOM(parsedTodoList[i]);
+  }
 }
 
 function removeTaskFromNavAndTodo(e) {
@@ -176,8 +217,8 @@ function populateCardToDOM(todoObject) {
 function populateTasksToCard(tasks) {
   var taskList = "";
   for (var i = 0; i < tasks.length; i++){
-    taskList += `<li data-id=${tasks.id}>
-          <img class="main__img--li" src="icons/checkbox.svg" alt="">
+    taskList += `<li data-id=${tasks.id} class="main__card--li">
+          <img class="main__img--li" src="icons/checkbox.svg" alt="icon check-box">
           <p>${tasks[i].text}</p>
           </li>`
   }

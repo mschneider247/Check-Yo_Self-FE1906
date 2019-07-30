@@ -208,6 +208,11 @@ main h4 {
   border-bottom: 1px solid grey;
 }
 
+.main__p--task-finished {
+  font-style: italic;
+  color: #587A8A;
+}
+
 main footer {
   display: flex;
   border-top: 1px solid grey;
