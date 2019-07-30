@@ -8,30 +8,54 @@ var listInputError = document.querySelector("#nav__div--list-error");
 var tasklistArea = document.querySelector(".nav__container-task-list");
 var inspire = document.querySelector("#main__container--inspire")
 
+// Okay for phase 2 I need somenew query selectors and event listeners
+// for the main area...   looks like I already have a query selector 
+// for it so check that off. The only thing I use it for right now
+// is the add inner html for the main element.  I can add an event listener
+// to that.  
+
+//When an image is clicked it will find its parent id and match it
+// to the id in global array.  Then I can target that specific element and change
+// images when its clicked and changing the done state boolean...    ok
+
+mainBody.addEventListener('click', mainEventHandler);
 navBody.addEventListener('click', navEventHandler);
-titleInput.addEventListener('mouseout', newToDoTitle);
+titleInput.addEventListener('mouseout', mouseOutCreateInitialObject);
 window.addEventListener("load", reInstantiate);
 
-function reInstantiate(){
-  var parsedTodoList = JSON.parse(localStorage.getItem("todoList"));
-  if (parsedTodoList == null){
-    inspire.classList.remove("hide");
-    return;
+function mainEventHandler(e) {
+  console.log("Clicking in the MAIN area!!!!");
+  console.log("e.target.classList.contains('main__img--li') ===", e.target.classList.contains("main__img--li"));
+  if (e.target.classList.contains('main__img--li')) {
+    console.log("Holy shit!! ewe hit the task complete button!!");
+    console.log("e.target===", e.target);
+    console.log("e.target.src===", e.target.src);
+    e.target.src = "icons/delete-active.svg";
+    console.log("e===", e);
+    console.log("e.target.parentNode.children[1].classList===", e.target.parentNode.children[1].classList);
+    var pNode = e.target.parentNode.children[1];
+    console.log(pNode);
+    pNode.classList.add("main__p--task-finished");
+    // In populateTasksToCard  wtf am I trying to do??
+    // in polulate"          " you can see the different elements
+    // you want to change the p tag to be italic
+    // --- match the p tag using the event console.log
+    // you'll add a new class and then style that class
+    // in the css
+    // more styling!!
+
+
+    // and change the object property to be true
+    // this needs to be passed through the class
+    // save to storage
+    // dom gets updated in the main.js
   }
-  for (var i = 0; i < parsedTodoList.length; i++){
-    buildCard(parsedTodoList[i]);
-    populateCardToDOM(parsedTodoList[i]);
-  }
+
 }
 
-//need another event listener for the x button on the
-//individual tasks as they pop up in the dom
-//this event will delete that element from the dom
-//but also needs to remove the coorisponding task from
-//the data model
 function navEventHandler(e) {
   if (e.target.id === 'nav__button--add-new-task') {
-      for (var i = 0; i < todoGlobalArray.length; i++){
+      for (var i = 0; i < todoGlobalArray.length; i++) {
         populateCardAndSave(i);
     }
   }
@@ -41,32 +65,42 @@ function navEventHandler(e) {
   if (e.target.id === 'nav__button--clear-all') {
     clearAll()
   }
-  if (e.target.className === 'nav__div--list-img'){
+  if (e.target.className === 'nav__div--list-img') {
     console.log("Clicking on the list image");
     removeTaskFromNavAndTodo(e);
   } 
 }
 
-// instead of pointing to GlobalArray 0 we can change how we load in the objects...
+function reInstantiate() {
+  var parsedTodoList = JSON.parse(localStorage.getItem("todoList"));
+  if (parsedTodoList == null){
+    inspire.classList.remove("hide");
+    return;
+  }
+  for (var i = 0; i < parsedTodoList.length; i++) {
+    buildCard(parsedTodoList[i]);
+    populateCardToDOM(parsedTodoList[i]);
+  }
+}
+
 function removeTaskFromNavAndTodo(e) {
   var taskArray = todoGlobalArray[0].tasks
-  for (var i = 0; i < taskArray.length; i++){
+  for (var i = 0; i < taskArray.length; i++) {
     var taskIndex = findIndex(e, taskArray, 'nav__div--list-item')
-    if (taskIndex >= 0){
+    if (taskIndex >= 0) {
       console.log("taskIndex====", taskIndex);
       taskArray.splice(taskIndex, 1);
       e.target.parentNode.remove();
-    }
-    
+    } 
   }   
 }
 
-function findIndex(e, array, item) {
-  var id = e.target.closest('.' + item).dataset.id;
+function findIndex(e, array, htmlAttribute) {
+  var id = e.target.closest('.' + htmlAttribute).dataset.id;
   var getIndex = array.findIndex(function(index) {
         console.log("index.id===", index.id);
         console.log("id===", id);
-        if (index.id == id){
+        if (index.id == id) {
           return index.id;
         }
   });
@@ -109,19 +143,20 @@ function clearNavArea() {
   listInputError.classList.add("hide");
 }
 
-function newToDoTitle(e){
+//newToDoTitle needs a new name...   mouseOutCreateInitialObject
+function mouseOutCreateInitialObject(e){
   console.log("mouseout is firing!");
-  if (checkTitleInput() === false){
+  if (checkTitleInput() === false) {
     return;
-  } else if (checkDuplicateTitles() === false){
+  } else if (checkDuplicateTitles() === false) {
     return;    
   }
   createNewCard(titleInput.value); 
 }
 
 function checkDuplicateTitles() {
-  for (var i = 0; i < todoGlobalArray.length; i++){
-      if (todoGlobalArray[i].title === titleInput.value){
+  for (var i = 0; i < todoGlobalArray.length; i++) {
+      if (todoGlobalArray[i].title === titleInput.value) {
         return false;
       };
   };
@@ -182,8 +217,8 @@ function populateCardToDOM(todoObject) {
 function populateTasksToCard(tasks) {
   var taskList = "";
   for (var i = 0; i < tasks.length; i++){
-    taskList += `<li data-id=${tasks.id}>
-          <img class="main__img--li" src="icons/checkbox.svg" alt="">
+    taskList += `<li data-id=${tasks.id} class="main__card--li">
+          <img class="main__img--li" src="icons/checkbox.svg" alt="icon check-box">
           <p>${tasks[i].text}</p>
           </li>`
   }
@@ -219,7 +254,7 @@ function newTodoObject(titleString) {
     }
 }
 
-function checkInputs (){
+function checkInputs() {
   if ((checkTitleInput() === true) && (checkListInput() === true)){
     return true;
   } else if ((checkTitleInput() === true) && (checkListInput() === false)){ 
@@ -229,7 +264,7 @@ function checkInputs (){
   }
 }
  
-function checkTitleInput(){
+function checkTitleInput() {
   if (titleInput.value !== ""){
     titleInputError.classList.add("hide");
     return true;
@@ -238,7 +273,7 @@ function checkTitleInput(){
   return false;
 }
 
-function checkListInput(){
+function checkListInput() {
   if (listInput.value !== ""){
     listInputError.classList.add("hide");
     return true;
