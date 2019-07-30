@@ -6,17 +6,11 @@ var listInput = document.querySelector(".nav__input--task-item");
 var titleInputError = document.querySelector("#nav__div--title-error");
 var listInputError = document.querySelector("#nav__div--list-error");
 var tasklistArea = document.querySelector(".nav__container-task-list");
-var inspire = document.querySelector("#main__container--inspire")
-
-// Okay for phase 2 I need somenew query selectors and event listeners
-// for the main area...   looks like I already have a query selector 
-// for it so check that off. The only thing I use it for right now
-// is the add inner html for the main element.  I can add an event listener
-// to that.  
+var inspire = document.querySelector("#main__container--inspire");
 
 //When an image is clicked it will find its parent id and match it
 // to the id in global array.  Then I can target that specific element and change
-// images when its clicked and changing the done state boolean...    ok
+// images when its clicked and change the done state boolean...    ok
 
 mainBody.addEventListener('click', mainEventHandler);
 navBody.addEventListener('click', navEventHandler);
@@ -24,33 +18,33 @@ titleInput.addEventListener('mouseout', mouseOutCreateInitialObject);
 window.addEventListener("load", reInstantiate);
 
 function mainEventHandler(e) {
-  console.log("Clicking in the MAIN area!!!!");
-  console.log("e.target.classList.contains('main__img--li') ===", e.target.classList.contains("main__img--li"));
   if (e.target.classList.contains('main__img--li')) {
-    console.log("Holy shit!! ewe hit the task complete button!!");
-    console.log("e.target===", e.target);
-    console.log("e.target.src===", e.target.src);
-    e.target.src = "icons/delete-active.svg";
-    console.log("e===", e);
-    console.log("e.target.parentNode.children[1].classList===", e.target.parentNode.children[1].classList);
-    var pNode = e.target.parentNode.children[1];
-    console.log(pNode);
-    pNode.classList.add("main__p--task-finished");
-    // In populateTasksToCard  wtf am I trying to do??
-    // in polulate"          " you can see the different elements
-    // you want to change the p tag to be italic
-    // --- match the p tag using the event console.log
-    // you'll add a new class and then style that class
-    // in the css
-    // more styling!!
-
-
-    // and change the object property to be true
-    // this needs to be passed through the class
-    // save to storage
-    // dom gets updated in the main.js
+    checkOffTask(e); 
   }
+}
 
+function checkOffTask(e) {
+  e.target.src = "icons/delete-active.svg";
+  var pNode = e.target.parentNode.children[1];
+  pNode.classList.add("main__p--task-finished");
+  var foundCard = findCardObj(findId(e));
+  var taskId = parseInt(e.target.parentElement.dataset.id);
+  for (var i = 0; i < foundCard.tasks.length; i++) {
+    if (foundCard.tasks[i].id === taskId){
+      foundCard.updateToDo(i)
+      foundCard.saveToStorage(todoGlobalArray);
+    }
+  }
+}
+
+function findCardObj(cardId){
+  console.log("cardId===", cardId);
+  return todoGlobalArray.find(function(index){
+    return index.id === cardId })
+}
+
+function findId(e){
+  return parseInt(e.target.closest(".main__card").getAttribute('data-id'));
 }
 
 function navEventHandler(e) {
@@ -84,7 +78,9 @@ function reInstantiate() {
 }
 
 function removeTaskFromNavAndTodo(e) {
+  console.log("is this still firing?  yes...")
   var taskArray = todoGlobalArray[0].tasks
+  console.log("taskArray===", taskArray);
   for (var i = 0; i < taskArray.length; i++) {
     var taskIndex = findIndex(e, taskArray, 'nav__div--list-item')
     if (taskIndex >= 0) {
@@ -95,8 +91,8 @@ function removeTaskFromNavAndTodo(e) {
   }   
 }
 
-function findIndex(e, array, htmlAttribute) {
-  var id = e.target.closest('.' + htmlAttribute).dataset.id;
+function findIndex(e, array, htmlClass) {
+  var id = e.target.closest(`.${htmlClass}`).dataset.id;
   var getIndex = array.findIndex(function(index) {
         console.log("index.id===", index.id);
         console.log("id===", id);
@@ -143,7 +139,6 @@ function clearNavArea() {
   listInputError.classList.add("hide");
 }
 
-//newToDoTitle needs a new name...   mouseOutCreateInitialObject
 function mouseOutCreateInitialObject(e){
   console.log("mouseout is firing!");
   if (checkTitleInput() === false) {
@@ -171,7 +166,7 @@ function createNewTask(taskString) {
     var taskListObj = new TaskList(taskObject);
     for (var i = 0; i < todoGlobalArray.length; i ++){
       if (todoGlobalArray[i].title === titleInput.value){
-        todoGlobalArray[i].updateTask(taskListObj);
+        todoGlobalArray[i].addNewTask(taskListObj);
         populateTaskToNav(taskListObj);
         listInput.value = "";
       }
@@ -216,13 +211,25 @@ function populateCardToDOM(todoObject) {
 
 function populateTasksToCard(tasks) {
   var taskList = "";
+  var pClass = "";
   for (var i = 0; i < tasks.length; i++){
-    taskList += `<li data-id=${tasks.id} class="main__card--li">
-          <img class="main__img--li" src="icons/checkbox.svg" alt="icon check-box">
-          <p>${tasks[i].text}</p>
+    var checkImage = checkListImage(tasks, i);
+    if (checkImage === "icons/delete-active.svg") {
+      pClass = "main__p--task-finished"
+    }
+    taskList += `<li data-id=${tasks[i].id} class="main__card--li">
+          <img class="main__img--li" src=${checkImage} alt="icon check-box">
+          <p class=${pClass}>${tasks[i].text}</p>
           </li>`
   }
   return taskList;
+}
+
+function checkListImage(tasks, index) {
+  if (tasks[index].isComplete === true) {
+    return "icons/delete-active.svg"
+  }
+  return "icons/checkbox.svg"
 }
 
 function populateTaskToNav(taskListObj) {

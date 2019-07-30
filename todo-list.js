@@ -6,8 +6,16 @@ class ToDoList {
     this.tasks = object.tasks;
   }
 
-  updateTask(taskli) {
-    this.tasks.push(taskli)
+  addNewTask(taskliObj) {
+    this.tasks.push(taskliObj)
+  }
+
+  updateToDo(index) {
+    this.tasks[index].isComplete = true;
+  }
+
+  updateTask(taskliObj) {
+    console.log("taskliObj===", taskliObj); 
   }
 
   saveToStorage(todoGlobalArray) {
