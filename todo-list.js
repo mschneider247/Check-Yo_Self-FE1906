@@ -11,8 +11,12 @@ class ToDoList {
     this.tasks.push(taskliObj)
   }
 
-  updateToDo(index) {
-    this.tasks[index].isComplete = true;
+  updateToDo(index, urgent) {
+    if (index >= 0) {
+      this.tasks[index].isComplete = true;
+      return;
+    }
+    this.urgent = urgent;
   }
 
   updateTask(taskliObj) {
