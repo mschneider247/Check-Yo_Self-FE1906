@@ -20,6 +20,33 @@ function mainEventHandler(e) {
   if (e.target.classList.contains('main__img--delete')) {
     deleteButtonClicked(e);
   }
+  if (e.target.classList.contains('main__img--urgent')) {
+    urgentButtonClicked(e);
+  }
+}
+
+function urgentButtonClicked(e) {
+  var foundCard = findCardObj(findId(e));
+  if (foundCard.urgent === false) {
+    activateUrgency(foundCard, e);
+  } else {
+    deactivateUrgency(foundCard, e);
+  }
+  foundCard.saveToStorage(todoGlobalArray); 
+}
+
+function activateUrgency(foundCard, e) {
+  e.target.src = "icons/urgent-active.svg";
+  e.target.parentElement.parentElement.parentElement.classList.add('main__card--urgent');
+  e.target.nextElementSibling.classList.add('main__p--red');
+  foundCard.updateToDo(-1, true);
+}
+
+function deactivateUrgency(foundCard, e) {
+  e.target.src = "icons/urgent.svg";
+  e.target.parentElement.parentElement.parentElement.classList.remove('main__card--urgent');
+  e.target.nextElementSibling.classList.remove('main__p--red');
+  foundCard.updateToDo(-1, false);
 }
 
 function deleteButtonClicked(e) {
@@ -202,7 +229,8 @@ function newTaskObject(taskString) {
 
 function populateCardToDOM(todoObject) {
   if (todoGlobalArray.length > 0){
-    mainBody.insertAdjacentHTML('afterbegin', `<card class="main__card" data-id=${todoObject.id}>
+    var urgencyArray = determineUrgencyOnReload(todoObject);
+    mainBody.insertAdjacentHTML('afterbegin', `<card class="main__card ${urgencyArray[0]}" data-id=${todoObject.id}>
       <p class="main__p--title">
         ${todoObject.title}
       </p>
@@ -211,8 +239,8 @@ function populateCardToDOM(todoObject) {
       </ul>
       <footer>
         <container class="main__container--urgent">
-          <img src="icons/urgent.svg" alt="urgent symbol">
-          <p>
+          <img class="main__img--urgent" src=${urgencyArray[1]} alt="urgent symbol">
+          <p ${urgencyArray[2]}>
             URGENT
           </p>
         </container>
@@ -227,6 +255,13 @@ function populateCardToDOM(todoObject) {
   }
 }
 
+function determineUrgencyOnReload(todoObject) {
+  if (todoObject.urgent === true){
+    return ['main__card--urgent', 'icons/urgent-active.svg', 'main__p--red']
+  }
+  return ['', 'icons/urgent.svg', ''];
+}
+
 function cardCanBeDeleted(todoObject) {
   if (todoObject.deletable === false) {
     return 'main__p--shadow'
@@ -234,9 +269,6 @@ function cardCanBeDeleted(todoObject) {
   return 'main__p--red'
 }
 
-
-// why is the image saving and persisting properly, but main__p--task-finished gets applied to all the tasks
-// when I reload
 function populateTasksToCard(tasks) {
   var taskList = "";
   for (var i = 0; i < tasks.length; i++){
@@ -252,9 +284,10 @@ function populateTasksToCard(tasks) {
 
 function checkListImage(tasks, index) {
   if (tasks[index].isComplete === true) {
-    return "icons/delete-active.svg"
-  }
-  return "icons/checkbox.svg"
+    return "icons/delete-active.svg";
+  } else {
+    return "icons/checkbox.svg";
+  } 
 }
 
 function setTaskStyle(checkImage) {

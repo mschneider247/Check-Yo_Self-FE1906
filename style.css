@@ -176,7 +176,7 @@ nav button {
 
 /**************** main styling ****************/
 main {
-  padding: 5%;
+  padding: 1.5%;
   grid-area: main;
 }
 
@@ -193,6 +193,10 @@ main card {
   border: 1px solid #C7D3D8;
   padding: 3%;
   margin: 3%;
+}
+
+.main__card--urgent {
+  background-color: #FFE89D;
 }
 
 #main__container--inspire {
@@ -218,7 +222,7 @@ main h4 {
 }
 
 .main__p--red {
-  color: red;
+  color: #B23A25;
 }
 
 main footer {
