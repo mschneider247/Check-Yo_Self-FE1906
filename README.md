@@ -23,13 +23,13 @@ Time was a limiting factor and instructors expected us to demonstrate everything
 * Javascript
 
 ## Comp Screenshots
-![Screen Shot 2019-07-24 at 7 01 13 PM](https://user-images.githubusercontent.com/50784336/61838245-a6725d00-ae45-11e9-81e5-7ead56ec5ed9.png)
+![Turing Desktop](icons/Turing-Desktop.png)
 
-![Screen Shot 2019-07-24 at 7 02 16 PM](https://user-images.githubusercontent.com/50784336/61838266-b722d300-ae45-11e9-9ac1-bece437c0185.png)
+![Turing Mobile](icons/Turing-Mobile.png)
 ## Recreation Screenshots
-![desktop-screenshot-ideabox](https://user-images.githubusercontent.com/50784336/61838306-e8030800-ae45-11e9-8018-e48eec4abb79.png)
+![MS Desktop](icons/MS-Desktop.png)
 
-![mobile-idea](https://user-images.githubusercontent.com/50784336/61838315-f51ff700-ae45-11e9-98cc-f5deb810002f.png)
+![MS Mobile](MS-Mobile.png)
 
 ## Features
 * Create new to-do lists
