@@ -50,7 +50,6 @@ function deactivateUrgency(foundCard, e) {
 }
 
 function deleteButtonClicked(e) {
-  console.log("deleteButtonClicked is firing!")
   var foundCard = findCardObj(findId(e));
   if (foundCard.deletable === true) {
     foundCard.deleteFromStorage(findId(e));
@@ -152,8 +151,6 @@ function removeTaskFromNavAndTodo(e) {
 function findIndex(e, array, htmlClass) {
   var id = e.target.closest(`.${htmlClass}`).dataset.id;
   var getIndex = array.findIndex(function(index) {
-        console.log("index.id===", index.id);
-        console.log("id===", id);
         if (index.id == id) {
           return index.id;
         }
@@ -180,7 +177,6 @@ function checkTasksIsPopulated(index) {
 }
 
 function clearAll() {
-  console.log("Clear All function is firing!!");
   for (var i = 0; i < todoGlobalArray.length; i++) {
     if ((todoGlobalArray[i].title === titleInput.value) || (todoGlobalArray[i].tasks.length === 0)) {
       todoGlobalArray.splice(i, 1);
@@ -198,7 +194,6 @@ function clearNavArea() {
 }
 
 function mouseOutCreateInitialObject(e){
-  console.log("mouseout is firing!");
   if (checkTitleInput() === false) {
     return;
   } else if (checkDuplicateTitles() === false) {
@@ -324,7 +319,6 @@ function populateTaskToNav(taskListObj) {
 function createNewCard(titleString) {
   var todoObject = newTodoObject(titleString);
   buildCard(todoObject);
-  console.log("Global Array===", todoGlobalArray);
 }
 
 function buildCard(object) {
