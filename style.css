@@ -1,20 +1,20 @@
 body {
-  margin: 0;
-  padding: 0;
   display: grid;
   grid-template-columns: 1fr 2fr; 
   grid-template-rows: 1fr 20fr;
   grid-template-areas: 
     "header header"
     "nav main";
+  box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 p {
-  margin-block-start: 0;
   margin-block-end: 0;
+  margin-block-start: 0;
 }
 
 ul {
@@ -28,10 +28,10 @@ li {
 
 /**************** header styling ****************/
 header {
-  grid-area: header;
-  color: white;
-  background-color: #1F1F3D;
   display: flex;
+  background-color: #1F1F3D;
+  color: white;
+  grid-area: header;
   padding: 0.1%;
 }
 
@@ -44,61 +44,65 @@ header span {
 }
 
 header container {
-  border-radius: 10px;
   display: flex;
+  border-radius: 10px;
+  height: 32px;
   margin: auto 2% auto auto;
   width: 220px;
-  height: 32px;
 }
 
 header button {
-  border-radius: 3px 0px 0px 3px;
-  width: 17%;
   background-color: lightgrey;
+  border-radius: 3px 0px 0px 3px;
   padding: 2%;
+  width: 17%;
 }
 
 header img {
-  margin-right: auto;
   height: 20px;
+  margin-right: auto;
   width: 20px;
 }
 
 header input {
-  border: none;
   border-radius: 0px 3px 3px 0px;
+  border: none;
   width: 78%;
 }
 
 /**************** nav styling ****************/
 nav {
-  grid-area: nav;
-  color: white;
   background-color: #587A8A;
+  color: white;
+  grid-area: nav;
   padding: 10% 4%;
 }
 
 nav label {
-  font-size: 0.5em;
   color: lightgrey;
   display: block;
+  font-size: 0.5em;
 }
 
 nav button {
-  border: 1px solid #1F1F3D;
   background-color: #1F1F3D;
+  border: 1px solid #1F1F3D;
   color: white;
 }
 
 #nav__div--title-error
  {
-  height: 0px;
   display: flex;
+  height: 0px;
 }
 
 #nav__div--list-error {
-  height: 10px;
   display: flex;
+  height: 10px;
+}
+
+#nav__p--error {
+  color: #fc6203;
 }
 
 .nav__div--list-item {
@@ -112,24 +116,20 @@ nav button {
 }
 
 .nav__img--error {
-  margin-right: 4%;
   height: 18px;
+  margin-right: 4%;
 }
 
 .hide {
   visibility: hidden;
 }
 
-#nav__p--error {
-  color: #fc6203;
-}
-
 .nav__input--title, 
 .nav__button {
-  margin: 5% 0;
   height: 32px;
-  width: 224px;
+  margin: 5% 0;
   padding: 0;
+  width: 224px;
 }
 
 .nav__input--title {
@@ -139,14 +139,14 @@ nav button {
 }
 
 .nav__section--task-input {
-  width: 224px;
-  margin-top: 10%;
   height: 42px;
+  margin-top: 10%;
+  width: 224px;
 }
 
 .nav__input--task-item {
-  border: 1px solid #1F1F3D;
   border-radius: 3px 0px 0px 3px;
+  border: 1px solid #1F1F3D;
   height: 67%;
   width: 188px;
 }
@@ -158,16 +158,16 @@ nav button {
 }
 
 .nav__button--plus {
-  font-size: 1.4em;
   border-radius: 0px 3px 3px 0px;
   float: right;
-  width: 32px;
+  font-size: 1.4em;
   height: 32px;
+  width: 32px;
 }
 
 .nav__section--urgent {
-  margin-top: 6%;
   border-top: 1px solid #1F1F3D;
+  margin-top: 6%;
 }
 
 .nav__button--filter {
@@ -176,53 +176,27 @@ nav button {
 
 /**************** main styling ****************/
 main {
-  padding: 1.5%;
   grid-area: main;
+  padding: 1.5%;
 }
 
 main img {
+  height: 16px;
   margin-top: 1.5%;
   width: 16px;
-  height: 16px;
 }
 
 main card {
-  width: 200px;
   display: flex;
-  flex-direction: column;
   border: 1px solid #C7D3D8;
-  padding: 3%;
+  flex-direction: column;
   margin: 3%;
-}
-
-.main__card--urgent {
-  background-color: #FFE89D;
-}
-
-#main__container--inspire {
-  display: flex;
-  width: 100%;
+  padding: 3%;
+  width: 200px;
 }
 
 main h4 {
   margin: 0.8% 3%;
-}
-
-.main__p--title {
-  border-bottom: 1px solid grey;
-}
-
-.main__p--task-finished {
-  font-style: italic;
-  color: #587A8A;
-}
-
-.main__p--shadow {
-  color: lightgrey;
-}
-
-.main__p--red {
-  color: #B23A25;
 }
 
 main footer {
@@ -243,12 +217,38 @@ footer container {
   flex-direction: column;
 }
 
-.main__container--delete {
-  margin-left: auto;
-}
-
 footer img {
   margin: 30% auto 0 auto;
+}
+
+#main__container--inspire {
+  display: flex;
+  width: 100%;
+}
+
+.main__card--urgent {
+  background-color: #FFE89D;
+}
+
+.main__p--title {
+  border-bottom: 1px solid grey;
+}
+
+.main__p--task-finished {
+  color: #587A8A;
+  font-style: italic;
+}
+
+.main__p--shadow {
+  color: lightgrey;
+}
+
+.main__p--red {
+  color: #B23A25;
+}
+
+.main__container--delete {
+  margin-left: auto;
 }
 
 /**************** Media Queries ****************/
@@ -276,7 +276,7 @@ footer img {
   }
 
   main card{
-    width: 95%;
     margin: 2% auto;
+    width: 95%;
   }
 }
