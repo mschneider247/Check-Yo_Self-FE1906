@@ -19,18 +19,20 @@
     </container>
   </header>  
   <nav>
-    <label>
+    <label for="ToDo Title">
       Task Title
     </label>
     <input class="nav__input--title" type="text" >
     <div class="hide" id="nav__div--title-error">
       <img class="nav__img--error" src="icons/error-icon.svg" alt="Error Symbol">
-      <p id="nav__p--error">Please Enter a Title</p>
+      <p id="nav__p--error">
+        Please Enter a Title
+      </p>
     </div>
     <container class="nav__container-task-list">
     </container>
     <section class="nav__section--task-input">
-      <label class="nav__label--task-item">
+      <label for="Input Task Item" class="nav__label--task-item">
         Task Item
       </label>
       <input class="nav__input--task-item" type="text">
@@ -40,7 +42,9 @@
     </section>
     <div class="hide" id="nav__div--list-error">
       <img class="nav__img--error" src="icons/error-icon.svg" alt="Error Symbol">
-      <p id="nav__p--error">Please Enter a List Item</p>
+      <p id="nav__p--error">
+        Please Enter a List Item
+      </p>
     </div>
     <button id="nav__button--add-new-task" class="nav__button">
       Make Task List
@@ -57,10 +61,12 @@
   <main>
     <container id="main__container--inspire" class="hide">
       <img src="icons/left-arrow.svg" alt="Arrow left, please insert a new ToDo!">
-      <h4>Add a new ToDo!</h4>
+      <h4>
+        Add a new ToDo!
+      </h4>
     </container>
   </main>
 </body>
-<script src="todo-list.js"></script>
-<script src="main.js"></script>
+  <script src="todo-list.js"></script>
+  <script src="main.js"></script>
 </html>
