@@ -29,7 +29,7 @@ Time was a limiting factor and instructors expected us to demonstrate everything
 ## Recreation Screenshots
 ![MS Desktop](icons/MS-Desktop.png)
 
-![MS Mobile](MS-Mobile.png)
+![MS Mobile](icons/MS-Mobile.png)
 
 ## Features
 * Create new to-do lists
