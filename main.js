@@ -68,6 +68,7 @@ function checkOffTask(e) {
   for (var i = 0; i < foundCard.tasks.length; i++) {
     if (foundCard.tasks[i].id === taskId){
       foundCard.updateToDo(i)
+      foundCard.saveToStorage(todoGlobalArray);
       checkDeleteActivate(foundCard, e);
     }
   }
